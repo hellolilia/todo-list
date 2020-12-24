@@ -1,6 +1,7 @@
 .header {
     color: indianred;
-    font-weight: lighter;
     text-align: center;
     font-size: 100px;
+    opacity: 30%;
+    margin-bottom: 10px;
 }
