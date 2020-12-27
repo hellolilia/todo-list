@@ -28,6 +28,10 @@ class InputItem extends React.Component<any,isState> {
         this.setState({ todos: arr, count: count + 1  });
     }
 
+    clearAll = () => {
+        this.setState({ todos: [], count: 0 });
+    };
+
     render() {
         return(
             <div className={'mainInput'}>
@@ -52,6 +56,7 @@ class InputItem extends React.Component<any,isState> {
                 <p>
                     {this.state.count} items left
                 </p>
+                <p onClick={this.clearAll}>Clear All</p>
             </div>
         )}
 }
