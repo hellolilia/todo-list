@@ -9,6 +9,7 @@ interface ITodoItem {
 
 interface isState {
     todos: ITodoItem[],
+    count: number,
 }
 
 class InputItem extends React.Component<any,isState> {
@@ -16,13 +17,15 @@ class InputItem extends React.Component<any,isState> {
         super(props);
         this.state = {
             todos: [],
+            count: 0,
         };
     }
+
     handlePressEnter = (e:any) => {
-        const { todos } = this.state;
+        const { todos, count } = this.state;
         let arr = todos;
         arr.push({ label: e.target.value, checked: false});
-        this.setState({ todos: arr});
+        this.setState({ todos: arr, count: count + 1  });
     }
 
     render() {
@@ -35,16 +38,20 @@ class InputItem extends React.Component<any,isState> {
                 />
 
                 <List>
-                    {this.state.todos.map((todo) => {
+                    {this.state.todos.map((todo,index) => {
                         return (
-                                <List.Item>
+                                <List.Item key={index}>
                                     <label>
                                         {todo.label}
                                     </label>
                                 </List.Item>
                             )
+
                     })}
                 </List>
+                <p>
+                    {this.state.count} items left
+                </p>
             </div>
         )}
 }
