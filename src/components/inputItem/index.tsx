@@ -44,7 +44,7 @@ class InputItem extends React.Component<any,isState> {
                 <List>
                     {this.state.todos.map((todo,index) => {
                         return (
-                                <List.Item key={index}>
+                                <List.Item key={index} className={'todoItem'}>
                                     <label>
                                         {todo.label}
                                     </label>
