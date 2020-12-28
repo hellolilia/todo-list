@@ -38,6 +38,13 @@ class InputItem extends React.Component<any,isState> {
         this.setState({ todos: [], count: 0 });
     };
 
+    deleteTodo = (index:number) => {
+        const { todos, count } = this.state;
+        let arr = todos.slice(0, todos.length);
+        arr.splice(index, 1);
+        this.setState({ todos: arr, count: count - 1});
+    };
+
     render() {
         return(
             <div className={'mainInput'}>
@@ -53,9 +60,20 @@ class InputItem extends React.Component<any,isState> {
                     {this.state.todos.map((todo,index) => {
                         return (
                                 <List.Item key={index} className={'todoItem'}>
+                                    <Input
+                                        type="checkbox"
+                                        value={Number(todo.checked)}
+                                    />
                                     <label>
                                         {todo.label}
                                     </label>
+                                    <button
+                                        onClick={() => {
+                                            this.deleteTodo(index);
+                                        }}
+                                    >
+                                        X
+                                    </button>
                                 </List.Item>
                             )
 
