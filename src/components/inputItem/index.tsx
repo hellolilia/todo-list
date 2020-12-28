@@ -10,6 +10,7 @@ interface ITodoItem {
 interface isState {
     todos: ITodoItem[],
     count: number,
+    inputText: string,
 }
 
 class InputItem extends React.Component<any,isState> {
@@ -18,14 +19,19 @@ class InputItem extends React.Component<any,isState> {
         this.state = {
             todos: [],
             count: 0,
+            inputText: '',
         };
+    }
+
+    handleOnChange = (e:any) => {
+        this.setState({ inputText: e.target.value });
     }
 
     handlePressEnter = (e:any) => {
         const { todos, count } = this.state;
         let arr = todos;
         arr.push({ label: e.target.value, checked: false});
-        this.setState({ todos: arr, count: count + 1  });
+        this.setState({ todos: arr, count: count + 1, inputText: ''});
     }
 
     clearAll = () => {
@@ -37,8 +43,10 @@ class InputItem extends React.Component<any,isState> {
             <div className={'mainInput'}>
                <Input
                    className={'input'}
-                    placeholder={'What needs to be done?'}
-                    onPressEnter={ e => this.handlePressEnter(e)}
+                   value={this.state.inputText}
+                   placeholder={'What needs to be done?'}
+                   onChange={e => this.handleOnChange(e)}
+                   onPressEnter={ e => this.handlePressEnter(e)}
                 />
 
                 <List>
