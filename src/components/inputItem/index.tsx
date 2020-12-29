@@ -11,6 +11,7 @@ interface isState {
     todos: ITodoItem[],
     count: number,
     inputText: string,
+    isCheckedAll: boolean,
 }
 
 class InputItem extends React.Component<any,isState> {
@@ -20,6 +21,7 @@ class InputItem extends React.Component<any,isState> {
             todos: [],
             count: 0,
             inputText: '',
+            isCheckedAll: false,
         }
     }
 
@@ -47,6 +49,14 @@ class InputItem extends React.Component<any,isState> {
         this.setState({ todos: [], count: 0 })
     }
 
+    handleCheckAll = () => {
+        const { isCheckedAll, todos } = this.state
+        const arr = todos.map((item) => {
+            return { label: item.label, checked: !isCheckedAll }
+        })
+        this.setState({ todos: arr, isCheckedAll: !isCheckedAll, count: isCheckedAll ? todos.length : 0 })
+    }
+
     deleteTodo = (index:number) => {
         const { todos, count } = this.state
         let arr = todos.slice(0, todos.length)
@@ -58,6 +68,12 @@ class InputItem extends React.Component<any,isState> {
         return(
             <div className={'mainInput'}>
                 <div className={'inputItem'}>
+                    <Input
+                        className='checkAll'
+                        type='checkbox'
+                        onClick={this.handleCheckAll}
+                        checked={this.state.isCheckedAll}
+                    />
                     <Input
                         className={'input'}
                         value={this.state.inputText}
@@ -72,8 +88,8 @@ class InputItem extends React.Component<any,isState> {
                                 <List.Item key={index} className={'todoItem'}>
                                     <Input
                                         className={'checkbox'}
-                                        type="checkbox"
-                                        value={Number(todo.checked)}
+                                        type='checkbox'
+                                        checked={todo.checked}
                                     />
                                     <Input
                                         className={'todoDetail'}
