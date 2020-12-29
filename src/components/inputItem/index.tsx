@@ -61,13 +61,15 @@ class InputItem extends React.Component<any,isState> {
                         return (
                                 <List.Item key={index} className={'todoItem'}>
                                     <Input
+                                        className={'checkbox'}
                                         type="checkbox"
                                         value={Number(todo.checked)}
                                     />
-                                    <label>
+                                    <label className={'todoDetail'}>
                                         {todo.label}
                                     </label>
                                     <button
+                                        className={'deleteTodo'}
                                         onClick={() => {
                                             this.deleteTodo(index);
                                         }}
