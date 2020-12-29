@@ -1,6 +1,5 @@
 .mainInput {
     margin: 0 auto;
-    border: none;
     box-shadow: #aaa 0 10px 10px 3px;
 }
 
@@ -9,6 +8,8 @@
     font-size: 24px;
     width: 500px;
     height: 40px;
+    border: none;
+    border-bottom: black 0.5px solid;
 }
 
 .todoItem {
@@ -29,12 +30,14 @@
 
 .todoDetail {
     flex: 1;
+    border: none;
+    font-size: 24px;
 }
 
 .deleteTodo {
     border: none;
     background: none;
-    color: green;
+    color: indianred;
     width: 60px;
     font-size: 24px;
 }
