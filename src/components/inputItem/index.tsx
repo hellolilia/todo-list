@@ -126,7 +126,7 @@ class InputItem extends React.Component<any,isState> {
 
                     })}
                 </List>
-                <div>
+                {todos.length !== 0 ? <div>
                     <div className={'bottomBorderOne'}>
                         <p>
                             {count} items left
@@ -135,8 +135,7 @@ class InputItem extends React.Component<any,isState> {
                     </div>
                     <div className={'bottomBorderTwo'}/>
                     <div className={'bottomBorderThree'}/>
-                </div>
-
+                </div> : null }
             </div>
         )}
 }
