@@ -105,11 +105,15 @@ class InputItem extends React.Component<any,isState> {
                                         onClick={e => this.handleCheckTodo(e, index)}
                                         checked={todo.checked}
                                     />
-                                    <Input
+                                    {todo.checked ? <Input
+                                        className={'todoDetailChecked'}
+                                        value={todo.label}
+                                        onChange={e => this.handleInputItemChange(e, index)}
+                                    /> : <Input
                                         className={'todoDetail'}
                                         value={todo.label}
                                         onChange={e => this.handleInputItemChange(e, index)}
-                                    />
+                                    />}
                                     <button
                                         className={'deleteTodo'}
                                         onClick={() => {this.deleteTodo(index)}}

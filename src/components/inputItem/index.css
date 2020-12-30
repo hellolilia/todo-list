@@ -44,6 +44,14 @@
     font-size: 24px;
 }
 
+.todoDetailChecked {
+    flex: 1;
+    border: none;
+    font-size: 24px;
+    text-decoration: line-through;
+    opacity: 30%;
+}
+
 .deleteTodo {
     border: none;
     background: none;
