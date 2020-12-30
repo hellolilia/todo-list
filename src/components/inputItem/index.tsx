@@ -46,7 +46,7 @@ class InputItem extends React.Component<any,isState> {
     }
 
     clearAll = () => {
-        this.setState({ todos: [], count: 0 })
+        this.setState({ todos: [], count: 0, isCheckedAll: false })
     }
 
     handleCheckAll = () => {
@@ -78,25 +78,26 @@ class InputItem extends React.Component<any,isState> {
     }
 
     render() {
+        const { todos, count, isCheckedAll, inputText } = this.state
         return(
             <div className={'mainInput'}>
                 <div className={'inputItem'}>
-                    <Input
+                    {todos.length !== 0 ? <Input
                         className='checkAll'
                         type='checkbox'
                         onClick={this.handleCheckAll}
-                        checked={this.state.isCheckedAll}
-                    />
+                        checked={isCheckedAll}
+                    /> : null}
                     <Input
                         className={'input'}
-                        value={this.state.inputText}
+                        value={inputText}
                         placeholder={'What needs to be done?'}
                         onChange={e => this.handleOnChange(e)}
                         onPressEnter={ e => this.handlePressEnter(e)}
                     />
                 </div>
                 <List>
-                    {this.state.todos.map((todo,index) => {
+                    {todos.map((todo,index) => {
                         return (
                                 <List.Item key={index} className={'todoItem'}>
                                     <Input
@@ -126,7 +127,7 @@ class InputItem extends React.Component<any,isState> {
                     })}
                 </List>
                 <p>
-                    {this.state.count} items left
+                    {count} items left
                 </p>
                 <p onClick={this.clearAll}>Clear All</p>
             </div>
