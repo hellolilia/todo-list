@@ -1,6 +1,7 @@
 .mainInput {
     margin: 0 auto;
     box-shadow: #aaa 0 10px 10px 3px;
+
 }
 
 .input {
@@ -60,4 +61,35 @@
     color: indianred;
     width: 60px;
     font-size: 24px;
+}
+
+.bottomBorderOne {
+    display: flex;
+    justify-content: space-evenly;
+    background: white;
+    width: 580px;
+    border-bottom: black 0.5px solid;
+    border-left: black 0.5px solid;
+    border-right: black 0.5px solid;
+    box-shadow: #aaa 0 10px 10px 3px;
+}
+
+.bottomBorderTwo {
+    background: white;
+    width: 570px;
+    height: 3px;
+    border-bottom: black 0.5px solid;
+    border-left: black 0.5px solid;
+    border-right: black 0.5px solid;
+    margin: auto;
+}
+
+.bottomBorderThree {
+    background: white;
+    width: 560px;
+    height: 3px;
+    border-bottom: black 0.5px solid;
+    border-left: black 0.5px solid;
+    border-right: black 0.5px solid;
+    margin: auto;
 }

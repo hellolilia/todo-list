@@ -126,10 +126,17 @@ class InputItem extends React.Component<any,isState> {
 
                     })}
                 </List>
-                <p>
-                    {count} items left
-                </p>
-                <p onClick={this.clearAll}>Clear All</p>
+                <div>
+                    <div className={'bottomBorderOne'}>
+                        <p>
+                            {count} items left
+                        </p>
+                        <p onClick={this.clearAll}>Clear All</p>
+                    </div>
+                    <div className={'bottomBorderTwo'}/>
+                    <div className={'bottomBorderThree'}/>
+                </div>
+
             </div>
         )}
 }
