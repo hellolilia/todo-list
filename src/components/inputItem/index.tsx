@@ -57,6 +57,19 @@ class InputItem extends React.Component<any,isState> {
         this.setState({ todos: arr, isCheckedAll: !isCheckedAll, count: isCheckedAll ? todos.length : 0 })
     }
 
+    handleCheckTodo = (e:any, index:number) => {
+        const { todos } = this.state
+        let arr = todos
+        arr[index].checked = !arr[index].checked
+        let total = 0
+        arr.forEach(item =>{
+            if(item.checked) {
+                total++
+            }
+        })
+        this.setState({ todos: arr, isCheckedAll: total === todos.length, count: todos.length - total })
+    }
+
     deleteTodo = (index:number) => {
         const { todos, count } = this.state
         let arr = todos.slice(0, todos.length)
@@ -89,6 +102,7 @@ class InputItem extends React.Component<any,isState> {
                                     <Input
                                         className={'checkbox'}
                                         type='checkbox'
+                                        onClick={e => this.handleCheckTodo(e, index)}
                                         checked={todo.checked}
                                     />
                                     <Input
