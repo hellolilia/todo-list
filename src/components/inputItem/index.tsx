@@ -1,13 +1,16 @@
 import React from 'react'
+import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom'
 import { Input, List } from 'antd'
 import './index.css'
-
-interface ITodoItem {
+import AllTodos from './components/allTodos'
+import ActiveTodos from "./components/activeTodos";
+import CompletedTodos from "./components/completedTodos";
+export interface ITodoItem {
     label:string,
     checked:boolean,
 }
 
-interface isState {
+export interface isState {
     todos: ITodoItem[],
     count: number,
     inputText: string,
@@ -80,6 +83,7 @@ class InputItem extends React.Component<any,isState> {
     render() {
         const { todos, count, isCheckedAll, inputText } = this.state
         return(
+            <Router>
             <div className={'mainInput'}>
                 <div className={'inputItem'}>
                     {todos.length !== 0 ? <Input
@@ -123,20 +127,28 @@ class InputItem extends React.Component<any,isState> {
                                     </button>
                                 </List.Item>
                             )
-
                     })}
                 </List>
+                <Switch>
+                    <Route exact path='/' component={AllTodos} />
+                    <Route path='/Active' component={ActiveTodos} />
+                    <Route path='/Complete' component={CompletedTodos} />
+                </Switch>
                 {todos.length !== 0 ? <div>
                     <div className={'bottomBorderOne'}>
                         <p>
                             {count} items left
                         </p>
+                        <Link to='/'>All</Link>
+                        <Link to='/Active'>Active</Link>
+                        <Link to='/Complete'>Complete</Link>
                         <p onClick={this.clearAll}>Clear All</p>
                     </div>
                     <div className={'bottomBorderTwo'}/>
                     <div className={'bottomBorderThree'}/>
                 </div> : null }
             </div>
+            </Router>
         )}
 }
 
