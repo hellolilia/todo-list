@@ -4,10 +4,10 @@ import DetailTodo from '../detialTodo'
 
 const AllTodos = () => {
   const state = store.getState()
-  const todos = state.todos
+  const todos = state.todos.filter((todo) => !todo.deleted)
   const count = state.count
 
-  return <DetailTodo todos={todos} count={count} />
+  return <DetailTodo todoList={todos} count={count} />
 }
 
 export default AllTodos

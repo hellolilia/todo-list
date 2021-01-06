@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom'
 import { store } from '../../store'
 import { Input } from 'antd'
@@ -10,7 +10,7 @@ import CompletedTodos from './components/completedTodos'
 
 import { useAppAction } from '../../actions/app'
 
-export const InputItem = () => {
+const InputItem = () => {
   const [inputText, setInputText] = useState('')
   const dispatch = useDispatch()
   const appAction = useAppAction(dispatch)
@@ -22,7 +22,15 @@ export const InputItem = () => {
   }
 
   const handlePressEnter = (e: any) => {
-    appAction.setTodoList([...todos, { label: e.target.value, checked: false }])
+    appAction.setTodoList([
+      ...todos,
+      {
+        label: e.target.value,
+        checked: false,
+        id: todos.length + 1,
+        deleted: false,
+      },
+    ])
     setInputText('')
     appAction.setCount(count + 1)
     console.log(todos)
@@ -37,7 +45,12 @@ export const InputItem = () => {
 
   const handleCheckAll = () => {
     const arr = todos.map((item) => {
-      return { label: item.label, checked: !isCheckedAll }
+      return {
+        label: item.label,
+        checked: !isCheckedAll,
+        id: item.id,
+        deleted: false,
+      }
     })
     appAction.setTodoList(arr)
     setInputText('')
@@ -87,3 +100,5 @@ export const InputItem = () => {
     </Router>
   )
 }
+
+export default connect((state) => state)(InputItem)

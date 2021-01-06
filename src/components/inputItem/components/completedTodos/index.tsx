@@ -4,9 +4,9 @@ import DetailTodo from '../detialTodo'
 
 const CompletedTodos = () => {
   const state = store.getState()
-  const todos = state.todos.filter((todo) => todo.checked)
+  const todos = state.todos.filter((todo) => todo.checked && !todo.deleted)
   const count = state.count
 
-  return <DetailTodo todos={todos} count={count} />
+  return <DetailTodo todoList={todos} count={count} />
 }
 export default CompletedTodos

@@ -3,20 +3,23 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useAppAction } from '../../../../actions/app'
 import { ITodoItem } from '../../../../types/app'
+import { store } from '../../../../store'
 
 interface IProps {
-  todos: ITodoItem[]
+  todoList: ITodoItem[]
   count: number
 }
 
 const DetailTodo = (props: IProps) => {
-  const { todos, count } = props
+  const { todoList, count } = props
   const dispatch = useDispatch()
   const appAction = useAppAction(dispatch)
+  const state = store.getState()
+  const { todos } = state
 
   const handleCheckTodo = (e: any, index: number) => {
     const arr = todos
-    arr[index].checked = !arr[index].checked
+    arr[index - 1].checked = !arr[index - 1].checked
     let total = 0
     arr.forEach((item) => {
       if (item.checked) {
@@ -30,27 +33,26 @@ const DetailTodo = (props: IProps) => {
 
   const deleteTodo = (index: number) => {
     const arr = todos.slice(0, todos.length)
-    arr.splice(index, 1)
+    arr.splice(index - 1, 1)
     appAction.setTodoList(arr)
     appAction.setCount(count - 1)
   }
 
   const handleInputItemChange = (e: any, index: number) => {
-    if (todos && todos.length) {
-      const arr = todos
-      arr[index].label = e.target.value
-      appAction.setTodoList(arr)
-    }
+    const arr = todos
+    arr[index].label = e.target.value
+    appAction.setTodoList(arr)
   }
+
   return (
     <List>
-      {todos.map((todo, index) => {
+      {todoList.map((todo, index) => {
         return (
           <List.Item key={index} className={'todoItem'}>
             <Input
               className={'checkbox'}
               type='checkbox'
-              onClick={(e) => handleCheckTodo(e, index)}
+              onClick={(e) => handleCheckTodo(e, todo.id)}
               checked={todo.checked}
             />
             {todo.checked ? (
@@ -69,7 +71,7 @@ const DetailTodo = (props: IProps) => {
             <button
               className={'deleteTodo'}
               onClick={() => {
-                deleteTodo(index)
+                deleteTodo(todo.id)
               }}
             >
               X
