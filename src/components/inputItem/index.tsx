@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom'
-
-import { Input, List } from 'antd'
+import { store } from '../../store'
+import { Input } from 'antd'
 import './index.css'
 import AllTodos from './components/allTodos'
 import ActiveTodos from './components/activeTodos'
 import CompletedTodos from './components/completedTodos'
 
-import { RootState } from '../../reducers/state'
-import { appAction, useAppAction } from '../../actions/app'
+import { useAppAction } from '../../actions/app'
 
 export const InputItem = () => {
   const [inputText, setInputText] = useState('')
@@ -17,10 +16,8 @@ export const InputItem = () => {
   const [isCheckedAll, setIsCheckedAll] = useState(false)
   const dispatch = useDispatch()
   const appAction = useAppAction(dispatch)
-  const { todos } = useSelector(({ appInfo }: RootState) => ({
-    ...appInfo,
-  }))
-  console.log(todos)
+  const state = store.getState()
+  const todos = state.todos
 
   const handleOnChange = (e: any) => {
     setInputText(e.target.value)
@@ -35,16 +32,7 @@ export const InputItem = () => {
   }
 
   const handlePressEnter = (e: any) => {
-    // todos
-    //   ? appAction.setTodoList([
-    //       ...todos,
-    //       {
-    //         label: e.target.value,
-    //         checked: false,
-    //       },
-    //     ])
-    //   :
-    appAction.setTodoList({ label: e.target.value, checked: false })
+    appAction.setTodoList([...todos, { label: e.target.value, checked: false }])
     setInputText('')
     setCount(count + 1)
     console.log(todos)
@@ -108,48 +96,13 @@ export const InputItem = () => {
             onPressEnter={(e) => handlePressEnter(e)}
           />
         </div>
-        {/*<List>*/}
-        {/*  {todos.map((todo, index) => {*/}
-        {/*    return (*/}
-        {/*      <List.Item key={index} className={'todoItem'}>*/}
-        {/*        <Input*/}
-        {/*          className={'checkbox'}*/}
-        {/*          type='checkbox'*/}
-        {/*          onClick={(e) => handleCheckTodo(e, index)}*/}
-        {/*          checked={todo.checked}*/}
-        {/*        />*/}
-        {/*        {todo.checked ? (*/}
-        {/*          <Input*/}
-        {/*            className={'todoDetailChecked'}*/}
-        {/*            value={todo.label}*/}
-        {/*            onChange={(e) => handleInputItemChange(e, index)}*/}
-        {/*          />*/}
-        {/*        ) : (*/}
-        {/*          <Input*/}
-        {/*            className={'todoDetail'}*/}
-        {/*            value={todo.label}*/}
-        {/*            onChange={(e) => handleInputItemChange(e, index)}*/}
-        {/*          />*/}
-        {/*        )}*/}
-        {/*        <button*/}
-        {/*          className={'deleteTodo'}*/}
-        {/*          onClick={() => {*/}
-        {/*            deleteTodo(index)*/}
-        {/*          }}*/}
-        {/*        >*/}
-        {/*          X*/}
-        {/*        </button>*/}
-        {/*      </List.Item>*/}
-        {/*    )*/}
-        {/*  })}*/}
-        {/*</List>*/}
-        <Switch>
-          <Route exact path='/' component={AllTodos} />
-          <Route path='/Active' component={ActiveTodos} />
-          <Route path='/Complete' component={CompletedTodos} />
-        </Switch>
         {todos && todos.length !== 0 ? (
           <div>
+            <Switch>
+              <Route exact path='/' component={AllTodos} />
+              <Route path='/Active' component={ActiveTodos} />
+              <Route path='/Complete' component={CompletedTodos} />
+            </Switch>
             <div className={'bottomBorderOne'}>
               <p>{count} items left</p>
               <Link to='/'>All</Link>

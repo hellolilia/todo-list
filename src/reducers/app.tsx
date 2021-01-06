@@ -7,7 +7,7 @@ export interface AppState {
 }
 
 const initialState: AppState = {
-  todos: [{ label: '2', checked: false }],
+  todos: [],
 }
 
 export const appReducer = handleAction(
