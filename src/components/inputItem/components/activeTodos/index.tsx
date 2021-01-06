@@ -1,15 +1,12 @@
 import React from 'react'
-import { ITodoItem } from '../../../../types/app'
+import { store } from '../../../../store'
+import DetailTodo from '../detialTodo'
 
-interface Iprops {
-  todos: ITodoItem[]
-  handleCheckTodo: (e: any, index: number) => void
-}
+const ActiveTodos = () => {
+  const state = store.getState()
+  const todos = state.todos.filter((todo) => !todo.checked)
 
-class ActiveTodos extends React.Component<Iprops, any> {
-  render() {
-    return <p>active</p>
-  }
+  return <DetailTodo todos={todos} />
 }
 
 export default ActiveTodos

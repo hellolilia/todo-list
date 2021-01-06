@@ -23,14 +23,6 @@ export const InputItem = () => {
     setInputText(e.target.value)
   }
 
-  const handleInputItemChange = (e: any, index: number) => {
-    if (todos && todos.length) {
-      const arr = todos
-      arr[index].label = e.target.value
-      appAction.setTodoList(arr)
-    }
-  }
-
   const handlePressEnter = (e: any) => {
     appAction.setTodoList([...todos, { label: e.target.value, checked: false }])
     setInputText('')
@@ -53,27 +45,6 @@ export const InputItem = () => {
     setInputText('')
     setCount(isCheckedAll ? todos.length : 0)
     setIsCheckedAll(!isCheckedAll)
-  }
-
-  const handleCheckTodo = (e: any, index: number) => {
-    const arr = todos
-    arr[index].checked = !arr[index].checked
-    let total = 0
-    arr.forEach((item) => {
-      if (item.checked) {
-        total++
-      }
-    })
-    appAction.setTodoList(arr)
-    setCount(todos.length - total)
-    setIsCheckedAll(total === todos.length)
-  }
-
-  const deleteTodo = (index: number) => {
-    const arr = todos.slice(0, todos.length)
-    arr.splice(index, 1)
-    appAction.setTodoList(arr)
-    setCount(count - 1)
   }
 
   return (
