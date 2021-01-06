@@ -6,10 +6,11 @@ import { ITodoItem } from '../../../../types/app'
 
 interface IProps {
   todos: ITodoItem[]
+  count: number
 }
 
 const DetailTodo = (props: IProps) => {
-  const { todos } = props
+  const { todos, count } = props
   const dispatch = useDispatch()
   const appAction = useAppAction(dispatch)
 
@@ -23,15 +24,15 @@ const DetailTodo = (props: IProps) => {
       }
     })
     appAction.setTodoList(arr)
-    // setCount(todos.length - total)
-    // setIsCheckedAll(total === todos.length)
+    appAction.setCount(todos.length - total)
+    appAction.setIsCheckedAll(total === todos.length)
   }
 
   const deleteTodo = (index: number) => {
     const arr = todos.slice(0, todos.length)
     arr.splice(index, 1)
     appAction.setTodoList(arr)
-    // setCount(count - 1)
+    appAction.setCount(count - 1)
   }
 
   const handleInputItemChange = (e: any, index: number) => {

@@ -1,19 +1,45 @@
 import { ITodoItem } from '../types/app'
-import { Action, handleAction } from 'redux-actions'
+import { Action, handleActions } from 'redux-actions'
 import { AppActionType } from '../actions/app'
 
 export interface AppState {
   todos: ITodoItem[]
+  count: number
+  isCheckedAll: boolean
 }
 
 const initialState: AppState = {
   todos: [],
+  count: 0,
+  isCheckedAll: false,
 }
 
-export const appReducer = handleAction(
-  AppActionType.setTodoList,
-  (state: AppState, action: Action<ITodoItem[]>) => ({
-    todos: action.payload,
-  }),
+export const appReducer = handleActions<AppState, any>(
+  {
+    [AppActionType.setTodoList]: (
+      state: AppState,
+      action: Action<ITodoItem[]>,
+    ) => {
+      return {
+        ...state,
+        todos: action.payload,
+      }
+    },
+    [AppActionType.setCount]: (state: AppState, action: Action<number>) => {
+      return {
+        ...state,
+        count: action.payload,
+      }
+    },
+    [AppActionType.setIsCheckedAll]: (
+      state: AppState,
+      action: Action<boolean>,
+    ) => {
+      return {
+        ...state,
+        isCheckedAll: action.payload,
+      }
+    },
+  },
   initialState,
 )

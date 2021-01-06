@@ -12,12 +12,10 @@ import { useAppAction } from '../../actions/app'
 
 export const InputItem = () => {
   const [inputText, setInputText] = useState('')
-  const [count, setCount] = useState(0)
-  const [isCheckedAll, setIsCheckedAll] = useState(false)
   const dispatch = useDispatch()
   const appAction = useAppAction(dispatch)
   const state = store.getState()
-  const todos = state.todos
+  const { todos, count, isCheckedAll } = state
 
   const handleOnChange = (e: any) => {
     setInputText(e.target.value)
@@ -26,15 +24,15 @@ export const InputItem = () => {
   const handlePressEnter = (e: any) => {
     appAction.setTodoList([...todos, { label: e.target.value, checked: false }])
     setInputText('')
-    setCount(count + 1)
+    appAction.setCount(count + 1)
     console.log(todos)
   }
 
   const clearAll = () => {
     appAction.setTodoList([])
     setInputText('')
-    setCount(0)
-    setIsCheckedAll(false)
+    appAction.setCount(0)
+    appAction.setIsCheckedAll(false)
   }
 
   const handleCheckAll = () => {
@@ -43,8 +41,8 @@ export const InputItem = () => {
     })
     appAction.setTodoList(arr)
     setInputText('')
-    setCount(isCheckedAll ? todos.length : 0)
-    setIsCheckedAll(!isCheckedAll)
+    appAction.setCount(isCheckedAll ? todos.length : 0)
+    appAction.setIsCheckedAll(!isCheckedAll)
   }
 
   return (
