@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import { connect, useDispatch } from 'react-redux'
 import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom'
-import { store } from '../../store'
 import { Button, Input } from 'antd'
+import { store } from '../../store'
 import './index.css'
 import AllTodos from './components/allTodos'
 import ActiveTodos from './components/activeTodos'
 import CompletedTodos from './components/completedTodos'
-
 import { useAppAction } from '../../actions/app'
 
 const InputItem = () => {
@@ -16,6 +15,7 @@ const InputItem = () => {
   const appAction = useAppAction(dispatch)
   const state = store.getState()
   const { todos, count, isCheckedAll } = state
+  const countTodos = todos.filter((todo) => !todo.deleted).length
 
   const handleOnChange = (e: any) => {
     setInputText(e.target.value)
@@ -72,7 +72,7 @@ const InputItem = () => {
     <Router>
       <div className={'mainInput'}>
         <div className={'inputItem'}>
-          {todos.filter((todo) => !todo.deleted).length !== 0 ? (
+          {countTodos !== 0 ? (
             <Input
               className='checkAll'
               type='checkbox'
@@ -88,7 +88,7 @@ const InputItem = () => {
             onPressEnter={(e) => handlePressEnter(e)}
           />
         </div>
-        {todos.filter((todo) => !todo.deleted).length !== 0 ? (
+        {countTodos !== 0 ? (
           <div>
             <Switch>
               <Route exact path='/' component={AllTodos} />
@@ -97,7 +97,11 @@ const InputItem = () => {
             </Switch>
             <div className={'bottomBorderOne'}>
               <div className={'countItems'}>
-                <p>{count} items left</p>
+                {count === 1 ? (
+                  <p>{count} item left</p>
+                ) : (
+                  <p>{count} items left</p>
+                )}
               </div>
               <div className={'filters'}>
                 <Link to='/'>All</Link>
