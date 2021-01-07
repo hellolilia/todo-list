@@ -1,5 +1,5 @@
 import { Input, List } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useAppAction } from '../../../../actions/app'
 import { ITodoItem } from '../../../../types/app'
@@ -16,6 +16,7 @@ const DetailTodo = (props: IProps) => {
   const appAction = useAppAction(dispatch)
   const state = store.getState()
   const { todos } = state
+  const [isEdit, setIsEdit] = useState(false)
 
   const handleCheckTodo = (e: any, index: number) => {
     const arr = todos
@@ -35,8 +36,9 @@ const DetailTodo = (props: IProps) => {
   }
 
   const handleInputItemChange = (e: any, index: number) => {
+    setIsEdit(!isEdit)
     const arr = todos
-    arr[index].label = e.target.value
+    arr[index - 1].label = e.target.value
     appAction.setTodoList(arr)
   }
 
@@ -55,13 +57,13 @@ const DetailTodo = (props: IProps) => {
               <Input
                 className={'todoDetailChecked'}
                 value={todo.label}
-                onChange={(e) => handleInputItemChange(e, index)}
+                onChange={(e) => handleInputItemChange(e, todo.id)}
               />
             ) : (
               <Input
                 className={'todoDetail'}
                 value={todo.label}
-                onChange={(e) => handleInputItemChange(e, index)}
+                onChange={(e) => handleInputItemChange(e, todo.id)}
               />
             )}
             <button
