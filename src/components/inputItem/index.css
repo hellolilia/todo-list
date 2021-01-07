@@ -64,13 +64,32 @@
 }
 
 .bottomBorderOne {
+    position: relative;
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
     background: white;
     width: 580px;
     border-bottom: #aaa 0.5px solid;
     box-shadow: #aaa 0 10px 10px 3px;
+}
+
+.countItems {
+    padding-left: 15px;
+    position: relative;
+}
+
+.filters {
+    position: absolute;
+    left: 17%;
+    display: flex;
+    justify-content: space-around;
+    width: 250px;
+    margin: 0 50px;
+}
+
+.completed {
+    position: absolute;
+    right: 15px;
 }
 
 a {
@@ -79,6 +98,7 @@ a {
 }
 
 .bottomBorderTwo {
+    position: relative;
     background: white;
     width: 570px;
     height: 3px;
@@ -89,6 +109,7 @@ a {
 }
 
 .bottomBorderThree {
+    position: relative;
     background: white;
     width: 560px;
     height: 3px;
@@ -96,4 +117,20 @@ a {
     border-left: #aaa 0.5px solid;
     border-right: #aaa 0.5px solid;
     margin: auto;
+}
+
+.completedButton {
+    cursor:pointer;
+    background: none;
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+.completedButton:hover {
+    text-decoration: underline;
+}
+
+.completedButton:active {
+    text-decoration: none;
 }
