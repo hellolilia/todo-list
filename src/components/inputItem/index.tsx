@@ -33,13 +33,23 @@ const InputItem = () => {
     ])
     setInputText('')
     appAction.setCount(count + 1)
-    console.log(todos)
   }
 
-  const clearAll = () => {
-    appAction.setTodoList([])
+  const clearCompleted = () => {
+    const completedTodos = todos.map((item) => {
+      if (item.checked) {
+        return {
+          label: item.label,
+          checked: false,
+          id: item.id,
+          deleted: true,
+        }
+      }
+      return item
+    })
+    appAction.setTodoList(completedTodos)
     setInputText('')
-    appAction.setCount(0)
+    appAction.setCount(completedTodos.filter((todo) => !todo.deleted).length)
     appAction.setIsCheckedAll(false)
   }
 
@@ -90,7 +100,7 @@ const InputItem = () => {
               <Link to='/'>All</Link>
               <Link to='/Active'>Active</Link>
               <Link to='/Complete'>Complete</Link>
-              <p onClick={clearAll}>Clear All</p>
+              <p onClick={clearCompleted}>Clear completed</p>
             </div>
             <div className={'bottomBorderTwo'} />
             <div className={'bottomBorderThree'} />

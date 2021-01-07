@@ -20,15 +20,11 @@ const DetailTodo = (props: IProps) => {
   const handleCheckTodo = (e: any, index: number) => {
     const arr = todos
     arr[index - 1].checked = !arr[index - 1].checked
-    let total = 0
-    arr.forEach((item) => {
-      if (item.checked) {
-        total++
-      }
-    })
     appAction.setTodoList(arr)
-    appAction.setCount(todos.length - total)
-    appAction.setIsCheckedAll(total === todos.length)
+    const activeNumber = arr.filter((todo) => !todo.checked && !todo.deleted)
+      .length
+    appAction.setCount(activeNumber)
+    appAction.setIsCheckedAll(activeNumber === 0)
   }
 
   const deleteTodo = (index: number) => {
