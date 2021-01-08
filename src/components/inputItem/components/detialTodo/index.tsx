@@ -1,5 +1,5 @@
 import { Input, List } from 'antd'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useAppAction } from '../../../../actions/app'
 import { ITodoItem } from '../../../../types/app'
@@ -20,6 +20,12 @@ const DetailTodo = (props: IProps) => {
   const [doubleClick, setDoubleClick] = useState(false)
   const [textStyle, setTextStyle] = useState('todoDetail')
 
+  useEffect(() => {
+    todo.checked
+      ? setTextStyle('todoDetailChecked')
+      : setTextStyle('todoDetail')
+  })
+
   const handleCheckTodo = (e: any, index: number) => {
     const arr = todos
     arr[index - 1].checked = !arr[index - 1].checked
@@ -28,9 +34,6 @@ const DetailTodo = (props: IProps) => {
       .length
     appAction.setCount(activeNumber)
     appAction.setIsCheckedAll(activeNumber === 0)
-    arr[index - 1].checked
-      ? setTextStyle('todoDetailChecked')
-      : setTextStyle('todoDetail')
   }
 
   const deleteTodo = (index: number) => {
