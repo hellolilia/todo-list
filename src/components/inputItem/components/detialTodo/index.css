@@ -9,6 +9,10 @@
     background-color: white;
 }
 
+.todoItem:hover .deleteTodo{
+    display: block;
+}
+
 .checkbox {
     width: 15px;
     zoom: 180%;
@@ -48,4 +52,5 @@
     color: indianred;
     width: 60px;
     font-size: 24px;
+    display: none;
 }
