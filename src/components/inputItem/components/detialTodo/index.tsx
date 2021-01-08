@@ -43,6 +43,14 @@ const DetailTodo = (props: IProps) => {
     appAction.setTodoList(arr)
   }
 
+  const handleDoubleClick = () => {
+    setDoubleClick(true)
+  }
+
+  const handleOnBlur = () => {
+    setDoubleClick(false)
+  }
+
   return (
     <List.Item className={'todoItem'}>
       <Input
@@ -53,34 +61,28 @@ const DetailTodo = (props: IProps) => {
       />
       {doubleClick ? (
         <Input
+          autoFocus
           className={'todoDetail'}
           value={todo.label}
           onChange={(e) => handleInputItemChange(e, todo.id)}
-          onBlur={() => {
-            setDoubleClick(false)
-          }}
-          onPressEnter={() => {
-            setDoubleClick(false)
-          }}
+          onBlur={handleOnBlur}
+          onPressEnter={handleOnBlur}
         />
       ) : (
-        <p
-          className={'todoDetail'}
-          onDoubleClick={() => {
-            setDoubleClick(true)
+        <label className={'todoDetail'} onDoubleClick={handleDoubleClick}>
+          {todo.label}
+        </label>
+      )}
+      {!doubleClick && (
+        <button
+          className={'deleteTodo'}
+          onClick={() => {
+            deleteTodo(todo.id)
           }}
         >
-          {todo.label}
-        </p>
+          X
+        </button>
       )}
-      <button
-        className={'deleteTodo'}
-        onClick={() => {
-          deleteTodo(todo.id)
-        }}
-      >
-        X
-      </button>
     </List.Item>
   )
 }
