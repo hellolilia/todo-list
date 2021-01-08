@@ -9,10 +9,18 @@
     background-color: white;
 }
 
+.checkbox {
+    width: 15px;
+    zoom: 180%;
+    margin-right: 5px;
+}
+
 .todoDetail {
     flex: 1;
     border: none;
     font-size: 24px;
+    margin: -16px -16px -16px 0;
+    line-height: 72px;
 }
 
 .todoDetailChecked {
