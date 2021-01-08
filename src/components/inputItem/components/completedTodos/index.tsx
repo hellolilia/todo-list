@@ -1,12 +1,19 @@
 import React from 'react'
 import { store } from '../../../../store'
 import DetailTodo from '../detialTodo'
+import { List } from 'antd'
 
 const CompletedTodos = () => {
   const state = store.getState()
   const todos = state.todos.filter((todo) => todo.checked && !todo.deleted)
-  const count = state.count
 
-  return <DetailTodo todoList={todos} count={count} />
+  return (
+    <List>
+      {todos.map((todo, index) => {
+        return <DetailTodo todo={todo} key={index} />
+      })}
+    </List>
+  )
 }
+
 export default CompletedTodos

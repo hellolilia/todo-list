@@ -25,43 +25,12 @@
     margin-right: 5px;
 }
 
-.todoItem {
-    display: flex;
-    list-style-type: none;
-    padding:16px 16px 16px 16px;
-    font-size: 24px;
-    height: 40px;
-    border-bottom: #aaa 0.5px solid;
-    background-color: white;
-}
-
 .checkbox {
     width: 15px;
     zoom: 180%;
     margin-right: 5px;
 }
 
-.todoDetail {
-    flex: 1;
-    border: none;
-    font-size: 24px;
-}
-
-.todoDetailChecked {
-    flex: 1;
-    border: none;
-    font-size: 24px;
-    text-decoration: line-through;
-    opacity: 30%;
-}
-
-.deleteTodo {
-    border: none;
-    background: none;
-    color: indianred;
-    width: 60px;
-    font-size: 24px;
-}
 
 .bottomBorderOne {
     position: relative;

@@ -4,19 +4,20 @@ import { useDispatch } from 'react-redux'
 import { useAppAction } from '../../../../actions/app'
 import { ITodoItem } from '../../../../types/app'
 import { store } from '../../../../store'
+import './index.css'
 
 interface IProps {
-  todoList: ITodoItem[]
-  count: number
+  todo: ITodoItem
 }
 
 const DetailTodo = (props: IProps) => {
-  const { todoList, count } = props
+  const { todo } = props
   const dispatch = useDispatch()
   const appAction = useAppAction(dispatch)
   const state = store.getState()
-  const { todos } = state
+  const { todos, count } = state
   const [isEdit, setIsEdit] = useState(false)
+  const [doubleClick, setDoubleClick] = useState(false)
 
   const handleCheckTodo = (e: any, index: number) => {
     const arr = todos
@@ -43,41 +44,44 @@ const DetailTodo = (props: IProps) => {
   }
 
   return (
-    <List>
-      {todoList.map((todo, index) => {
-        return (
-          <List.Item key={index} className={'todoItem'}>
-            <Input
-              className={'checkbox'}
-              type='checkbox'
-              onClick={(e) => handleCheckTodo(e, todo.id)}
-              checked={todo.checked}
-            />
-            {todo.checked ? (
-              <Input
-                className={'todoDetailChecked'}
-                value={todo.label}
-                onChange={(e) => handleInputItemChange(e, todo.id)}
-              />
-            ) : (
-              <Input
-                className={'todoDetail'}
-                value={todo.label}
-                onChange={(e) => handleInputItemChange(e, todo.id)}
-              />
-            )}
-            <button
-              className={'deleteTodo'}
-              onClick={() => {
-                deleteTodo(todo.id)
-              }}
-            >
-              X
-            </button>
-          </List.Item>
-        )
-      })}
-    </List>
+    <List.Item className={'todoItem'}>
+      <Input
+        className={'checkbox'}
+        type='checkbox'
+        onClick={(e) => handleCheckTodo(e, todo.id)}
+        checked={todo.checked}
+      />
+      {doubleClick ? (
+        <Input
+          className={'todoDetail'}
+          value={todo.label}
+          onChange={(e) => handleInputItemChange(e, todo.id)}
+          onBlur={() => {
+            setDoubleClick(false)
+          }}
+          onPressEnter={() => {
+            setDoubleClick(false)
+          }}
+        />
+      ) : (
+        <p
+          className={'todoDetail'}
+          onDoubleClick={() => {
+            setDoubleClick(true)
+          }}
+        >
+          {todo.label}
+        </p>
+      )}
+      <button
+        className={'deleteTodo'}
+        onClick={() => {
+          deleteTodo(todo.id)
+        }}
+      >
+        X
+      </button>
+    </List.Item>
   )
 }
 
