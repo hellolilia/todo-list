@@ -18,6 +18,7 @@ const DetailTodo = (props: IProps) => {
   const { todos, count } = state
   const [isEdit, setIsEdit] = useState(false)
   const [doubleClick, setDoubleClick] = useState(false)
+  const [textStyle, setTextStyle] = useState('todoDetail')
 
   const handleCheckTodo = (e: any, index: number) => {
     const arr = todos
@@ -27,6 +28,9 @@ const DetailTodo = (props: IProps) => {
       .length
     appAction.setCount(activeNumber)
     appAction.setIsCheckedAll(activeNumber === 0)
+    arr[index - 1].checked
+      ? setTextStyle('todoDetailChecked')
+      : setTextStyle('todoDetail')
   }
 
   const deleteTodo = (index: number) => {
@@ -71,7 +75,7 @@ const DetailTodo = (props: IProps) => {
           onPressEnter={handleOnBlur}
         />
       ) : (
-        <label className={'todoDetail'} onDoubleClick={handleDoubleClick}>
+        <label className={textStyle} onDoubleClick={handleDoubleClick}>
           {todo.label}
         </label>
       )}

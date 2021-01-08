@@ -44,6 +44,8 @@
     font-size: 24px;
     text-decoration: line-through;
     opacity: 30%;
+    margin: -16px -16px -16px 0;
+    line-height: 72px;
 }
 
 .deleteTodo {
