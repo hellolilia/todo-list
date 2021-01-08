@@ -56,15 +56,15 @@ const InputItem = () => {
   const handleCheckAll = () => {
     const arr = todos.map((item) => {
       return {
-        label: item.label,
+        ...item,
         checked: !isCheckedAll,
-        id: item.id,
-        deleted: false,
       }
     })
     appAction.setTodoList(arr)
     setInputText('')
-    appAction.setCount(isCheckedAll ? todos.length : 0)
+    appAction.setCount(
+      isCheckedAll ? todos.filter((todo) => !todo.deleted).length : 0,
+    )
     appAction.setIsCheckedAll(!isCheckedAll)
   }
 
