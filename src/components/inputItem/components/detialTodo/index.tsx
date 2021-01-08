@@ -30,8 +30,8 @@ const DetailTodo = (props: IProps) => {
   }
 
   const deleteTodo = (index: number) => {
-    const arr = todos.slice(0, todos.length)
-    arr.splice(index - 1, 1)
+    const arr = todos
+    arr[index - 1].deleted = true
     appAction.setTodoList(arr)
     appAction.setCount(count - 1)
   }
