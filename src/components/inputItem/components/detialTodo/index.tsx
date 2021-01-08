@@ -53,16 +53,18 @@ const DetailTodo = (props: IProps) => {
 
   return (
     <List.Item className={'todoItem'}>
-      <Input
-        className={'checkbox'}
-        type='checkbox'
-        onClick={(e) => handleCheckTodo(e, todo.id)}
-        checked={todo.checked}
-      />
+      {!doubleClick && (
+        <Input
+          className={'checkbox'}
+          type='checkbox'
+          onClick={(e) => handleCheckTodo(e, todo.id)}
+          checked={todo.checked}
+        />
+      )}
       {doubleClick ? (
         <Input
           autoFocus
-          className={'todoDetail'}
+          className={'todoEdit'}
           value={todo.label}
           onChange={(e) => handleInputItemChange(e, todo.id)}
           onBlur={handleOnBlur}

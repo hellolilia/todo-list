@@ -23,6 +23,17 @@
     line-height: 72px;
 }
 
+.todoEdit {
+    flex: 1;
+    border: none;
+    font-size: 24px;
+    margin: -16px -15px -16px 35px;
+    padding-left: 10px;
+    line-height: 72px;
+    outline-color: black;
+    box-shadow: inset #aaa 0 0 2px 2px;
+}
+
 .todoDetailChecked {
     flex: 1;
     border: none;
